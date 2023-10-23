@@ -1,23 +1,40 @@
 <template>
-  <div>
-    <div v-for="(products, index) in mainArr" :key="index">
-      <div>price : {{ products.price }}</div>
+ 
+  <NavBar />
 
-      <div>title :{{ products.title }}</div>
-
-      <div>des : {{ products.description }}</div>
-
-      <div>img : {{ products.images }}</div>
-
-      <div>cat : {{ products.category }}</div> 
+  <v-container class="all-products">
+    <div v-for="(products, index) in mainArr" :key="index" class="product card">
+      <div>
+        <v-carousel
+         
+          height="150px"
+          class="img-width"
+          delimiter-icon="mdi-square"
+          :continuous="true"
+          :show-arrows="false"
+        >
+          <v-carousel-item
+            v-for="(img, imgIndex) in products.images"
+            :key="imgIndex"
+            :src="`${img}`"
+            :alt="img"
+            cover
+          ></v-carousel-item>
+        </v-carousel>
+        <h3 class="font-weight-medium text-center">{{ products.title }}</h3>
+        <p class="price">${{ products.price }}</p>
+        <p><button>Add to Cart</button></p>
+      </div>
     </div>
+  </v-container>
 
-   
-  </div>
+ 
 </template>
 
 <script setup>
 import { ref } from "vue";
+import NavBar from "../components/Reusables/NavBar.vue";
+
 import axios from "axios";
 
 const mainArr = ref([]);
@@ -53,4 +70,43 @@ async function get() {
 get();
 </script>
 
-<style></style>
+<style scoped>
+.all-products {
+  display: flex;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product {
+  width: 22%;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: auto;
+  text-align: center;
+  font-family: serif;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+</style>
