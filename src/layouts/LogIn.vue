@@ -59,8 +59,10 @@ async function logInUser() {
         password: user.password,
       }
     );
+
+    localStorage.setItem("loggedUser", JSON.stringify(user));
+
     router.replace("/");
-   
   } catch (error) {
     console.log(error);
   }
