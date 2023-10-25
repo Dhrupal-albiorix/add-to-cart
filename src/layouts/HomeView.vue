@@ -2,11 +2,14 @@
  
   <NavBar />
 
+  <v-container>
+    <ProductCatogary/>
+  </v-container>
+
   <v-container class="all-products">
     <div v-for="(products, index) in mainArr" :key="index" class="product card">
       <div>
         <v-carousel
-         
           height="150px"
           class="img-width"
           delimiter-icon="mdi-square"
@@ -34,6 +37,7 @@
 <script setup>
 import { ref } from "vue";
 import NavBar from "../components/Reusables/NavBar.vue";
+import ProductCatogary from "./ProductCatogary.vue";
 
 import axios from "axios";
 
@@ -47,7 +51,6 @@ var oldScrollY = window.scrollY;
 window.onscroll = function (e) {
   if (oldScrollY < window.scrollY) {
     limit.value += 25;
-    console.log(limit.value);
     get();
   } else {
     limit.value -= 25;
@@ -79,7 +82,7 @@ get();
 }
 
 .product {
-  width: 22%;
+  width: 40vh;
 }
 
 .card {

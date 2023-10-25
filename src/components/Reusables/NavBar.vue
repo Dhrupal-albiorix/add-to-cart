@@ -3,7 +3,8 @@
     <v-app-bar app color="deep-black accent-4" dark dense>
       <v-app-bar-nav-icon> </v-app-bar-nav-icon>
       <v-toolbar-title>
-        <v-icon>mdi-store</v-icon>
+        <router-link to="/"><v-icon>mdi-store</v-icon></router-link>
+        
         <sub class="text-grey">ShopLines</sub>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -20,15 +21,14 @@
         </form>
       </div>
 
-      <router-link to="/sign-up"
-        ><v-btn icon>
+      <v-btn @click="userProfile">
           <v-icon> mdi-account-circle </v-icon>
 
           <v-tooltip activator="parent" location="bottom">
             {{ displayUserProfile }}
           </v-tooltip>
         </v-btn>
-      </router-link>
+     
 
       <v-menu left>
         <template v-slot:activator="{ on, attrs }">
@@ -46,6 +46,8 @@ import axios from "axios";
 import { ref, computed } from "vue";
 const userArr = ref([]);
 let activeUserProfile = ref([]);
+
+import router from "@/router";
 async function get() {
   try {
     const data = await axios.get(
@@ -56,7 +58,7 @@ async function get() {
     activeUserProfile.value = await userArr.value.find(
       (user) => user.email === activeUser.email
     );
-    console.log(activeUserProfile.value.name, "hiiiiiii");
+    
   } catch (error) {
     console.log(error);
   }
@@ -70,6 +72,13 @@ const displayUserProfile = computed(() => {
     return "Loading...";
   }
 });
+
+
+function userProfile(){
+  if (!activeUserProfile.value) return
+  router.push("/profile");
+}
+
 </script>
 
 <style>

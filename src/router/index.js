@@ -1,22 +1,27 @@
 // Composables
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
-    path: '/',
-    component: () => import('@/layouts/HomeView.vue'),
+    path: "/",
+    component: () => import("@/layouts/HomeView.vue"),
   },
   {
-    path: '/sign-up',
-    name : 'sign-up',
-    component: () => import('@/layouts/SignUP.vue'),
+    path: "/login-signup",
+    name: "login-signup",
+    component: () => import("@/layouts/Signup_Login.vue"),
   },
   {
-    path: '/log-in',
-    name : 'log-in',
-    component: () => import('@/layouts/LogIn.vue'),
+    path: "/edit-profile",
+    name: "edit-profile",
+    component: () => import("@/layouts/Signup_Login.vue"),
   },
-]
+  {
+    path: "/profile",
+    name: "profile",
+    component: () => import("@/layouts/UserProfile.vue"),
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -24,17 +29,14 @@ const router = createRouter({
 
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-        console.log("savedPosition", savedPosition)
-        return savedPosition;
+      return savedPosition;
     } else {
-        console.log("savedPosition-else", savedPosition)
-        return {
-            left: 0,
-            top: 0
-        };
-
+      return {
+        left: 0,
+        top: 0,
+      };
     }
-} 
-})
+  },
+});
 
-export default router
+export default router;
