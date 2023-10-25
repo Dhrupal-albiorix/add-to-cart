@@ -21,6 +21,11 @@ const routes = [
     name: "profile",
     component: () => import("@/layouts/UserProfile.vue"),
   },
+  {
+    path: "/category",
+    name: "category",
+    component: () => import("@/layouts/CategoryPage.vue"),
+  },
 ];
 
 const router = createRouter({

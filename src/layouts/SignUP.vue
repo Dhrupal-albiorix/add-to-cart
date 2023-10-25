@@ -51,7 +51,7 @@
           :rules="imageLinkRule"
         />
       </v-col>
-      
+
       <v-col cols="12" md="4" sm="4" v-if="editIndex >= 0 && editIndex != null">
         <v-btn variant="outlined" @click="updateProfile()"
           >update profile</v-btn
@@ -103,7 +103,9 @@ async function get() {
     );
     userArr.value = await data.data;
     if (localStorage.getItem("editProfileId")) {
-      const foundUser = userArr.value.find((user) => user.id === +editIndex.value);
+      const foundUser = userArr.value.find(
+        (user) => user.id === +editIndex.value
+      );
       if (foundUser) {
         (user.name = foundUser.name),
           (user.email = foundUser.email),
@@ -154,7 +156,6 @@ async function submitUser() {
 }
 
 async function updateProfile() {
- 
   try {
     const data = await axios.put(
       `https://api.escuelajs.co/api/v1/users/${+editIndex.value}`,
@@ -167,9 +168,10 @@ async function updateProfile() {
       }
     );
     localStorage.removeItem("editProfileId");
-    router.push("/profile")
-    console.log(data)
+    router.push("/profile");
+    console.log(data);
   } catch (error) {
+    localStorage.removeItem("editProfileId");
     console.log(error);
   }
 }

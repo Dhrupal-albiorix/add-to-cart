@@ -1,10 +1,12 @@
 <template>
   <NavBar />
 
-  <ProductCatogary />
-
   <v-container class="all-products">
-    <div v-for="(products, index) in mainArr" :key="index" class="product card">
+    <div
+      v-for="(products, index) in activeUserCategory"
+      :key="index"
+      class="product card"
+    >
       <div>
         <v-carousel
           height="150px"
@@ -30,13 +32,16 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import NavBar from "../components/Reusables/NavBar.vue";
 import ProductCatogary from "./ProductCatogary.vue";
+
+import { ref } from "vue";
+const category = localStorage.getItem("category");
 
 import axios from "axios";
 
 const mainArr = ref([]);
+const activeUserCategory = ref([]);
 
 const limit = ref(25);
 const offset = ref(0);
@@ -60,24 +65,18 @@ async function get() {
       `https://api.escuelajs.co/api/v1/products?limit=${limit.value}&offset=${offset.value}`
     );
     mainArr.value = await data.data;
+
+    const activeCategory = JSON.parse(localStorage.getItem("category"));
+
+    activeUserCategory.value = mainArr.value.filter(
+      (product) => product.category.id === activeCategory.id
+    );
   } catch (error) {
-    snackbar.value = true;
-    errMsg.value = error;
+    console.log(error);
   }
 }
 get();
 </script>
-
-<style>
-html,
-body {
-  scrollbar-width: none;
-}
-
-body::-webkit-scrollbar {
-  display: none;
-}
-</style>
 
 <style scoped>
 .all-products {
