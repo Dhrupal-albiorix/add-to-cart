@@ -40,6 +40,7 @@ import axios from "axios";
 import { ref } from "vue";
 const catArr = ref([]);
 
+
 async function get() {
   try {
     const data = await axios.get(

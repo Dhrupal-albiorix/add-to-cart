@@ -23,18 +23,24 @@
         </v-carousel>
         <h3 class="font-weight-medium text-center">{{ products.title }}</h3>
         <p class="price">${{ products.price }}</p>
-        <p><button>Add to Cart</button></p>
+        <p>{{ products.category.name }}</p>
+        <div>
+          <v-btn @click="userDataFromStore.showProductPage(products)">view more</v-btn>
+      </div>
       </div>
     </div>
   </v-container>
 </template>
 
 <script setup>
+import { useAppStore } from "../store/app"
 import { ref } from "vue";
 import NavBar from "../components/Reusables/NavBar.vue";
 import ProductCatogary from "./ProductCatogary.vue";
 
 import axios from "axios";
+
+const userDataFromStore = useAppStore();
 
 const mainArr = ref([]);
 

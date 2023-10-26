@@ -1,6 +1,9 @@
 <template>
   <NavBar />
-
+  <div class="slot-container">
+    <!-- Use the default slot to display content -->
+    <slot></slot>
+  </div>
   <v-container class="all-products">
     <div
       v-for="(products, index) in activeUserCategory"
@@ -25,7 +28,8 @@
         </v-carousel>
         <h3 class="font-weight-medium text-center">{{ products.title }}</h3>
         <p class="price">${{ products.price }}</p>
-        <p><button>Add to Cart</button></p>
+       
+        <p><button @click="userDataFromStore.showProductPage(products)">view more</button></p>
       </div>
     </div>
   </v-container>
@@ -33,15 +37,18 @@
 
 <script setup>
 import NavBar from "../components/Reusables/NavBar.vue";
-import ProductCatogary from "./ProductCatogary.vue";
 
 import { ref } from "vue";
-const category = localStorage.getItem("category");
+
+import { useAppStore } from "../store/app";
+
+const userDataFromStore = useAppStore();
 
 import axios from "axios";
 
 const mainArr = ref([]);
 const activeUserCategory = ref([]);
+
 
 const limit = ref(25);
 const offset = ref(0);
@@ -68,9 +75,11 @@ async function get() {
 
     const activeCategory = JSON.parse(localStorage.getItem("category"));
 
-    activeUserCategory.value = mainArr.value.filter(
-      (product) => product.category.id === activeCategory.id
-    );
+
+      activeUserCategory.value = mainArr.value.filter(
+        (product) => product.category.id === activeCategory.id
+      );
+    
   } catch (error) {
     console.log(error);
   }

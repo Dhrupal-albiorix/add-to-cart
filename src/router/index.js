@@ -22,6 +22,11 @@ const routes = [
     component: () => import("@/layouts/UserProfile.vue"),
   },
   {
+    path: "/show-product",
+    name: "show-product",
+    component: () => import("@/layouts/ShowProduct.vue"),
+  },
+  {
     path: "/category",
     name: "category",
     component: () => import("@/layouts/CategoryPage.vue"),
