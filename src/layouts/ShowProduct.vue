@@ -29,7 +29,9 @@
           <img :src="`${showProduct.category.image}`" alt="" class="img" />
         </div>
         <div>
-          <v-btn @click="addToCart()">Add to cart</v-btn>
+          <v-btn @click="userDataFromStore.addToCart(showProduct)"
+            >Add to cart</v-btn
+          >
         </div>
       </div>
 
@@ -43,10 +45,10 @@ import { useAppStore } from "../store/app";
 
 const userDataFromStore = useAppStore();
 import CategoryPage from "./CategoryPage.vue";
-import { ref, watch } from "vue";
+import { ref, computed } from "vue";
 
 // Initialize showProduct with the value from localStorage
-let showProduct = JSON.parse(localStorage.getItem("showProduct"));
+let showProduct = ref(JSON.parse(localStorage.getItem("showProduct")));
 </script>
 
 <style scoped>
