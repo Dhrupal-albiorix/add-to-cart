@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon> </v-app-bar-nav-icon>
       <v-toolbar-title>
         <router-link to="/"><v-icon>mdi-store</v-icon></router-link>
-        
+
         <sub class="text-grey">ShopLines</sub>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -22,13 +22,14 @@
       </div>
 
       <v-btn @click="userProfile">
-          <v-icon> mdi-account-circle </v-icon>
+        <v-icon> mdi-account-circle </v-icon>
 
-          <v-tooltip activator="parent" location="bottom">
-            {{ displayUserProfile }}
-          </v-tooltip>
-        </v-btn>
-     
+        <v-tooltip activator="parent" location="bottom">
+          {{ displayUserProfile }}
+        </v-tooltip>
+      </v-btn>
+
+      <router-link to="/cart"> <v-icon> mdi-cart-heart </v-icon></router-link>
 
       <v-menu left>
         <template v-slot:activator="{ on, attrs }">
@@ -58,7 +59,6 @@ async function get() {
     activeUserProfile.value = await userArr.value.find(
       (user) => user.email === activeUser.email
     );
-    
   } catch (error) {
     console.log(error);
   }
@@ -73,12 +73,10 @@ const displayUserProfile = computed(() => {
   }
 });
 
-
-function userProfile(){
-  if (!activeUserProfile.value) return
+function userProfile() {
+  if (!activeUserProfile.value) return;
   router.push("/profile");
 }
-
 </script>
 
 <style>
