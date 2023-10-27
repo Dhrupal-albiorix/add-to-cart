@@ -14,7 +14,7 @@
             :key="imgIndex"
             :src="`${img}`"
             :alt="img"
-            cover
+            cover 
           ></v-carousel-item>
         </v-carousel>
         <h3 class="font-weight-medium text-center">{{ showProduct.title }}</h3>
@@ -90,3 +90,4 @@ let showProduct = JSON.parse(localStorage.getItem("showProduct"));
   opacity: 0.7;
 }
 </style>
+
