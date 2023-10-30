@@ -14,11 +14,18 @@
             :key="imgIndex"
             :src="`${img}`"
             :alt="img"
-            cover 
+            cover
           ></v-carousel-item>
         </v-carousel>
         <h3 class="font-weight-medium text-center">{{ showProduct.title }}</h3>
         <p class="price">${{ showProduct.price }}</p>
+        <div>
+          total : 
+        </div>
+        <div>
+          <v-icon @click="userDataFromStore.increaseQuantity(showProduct)">mdi-plus-box</v-icon>
+          <v-icon @click="userDataFromStore.decreaseQuantity(showProduct)">mdi-minus-box</v-icon>
+        </div>
         <div>
           {{ showProduct.description }}
         </div>

@@ -32,5 +32,17 @@ export const useAppStore = defineStore("app", {
       this.cartArr.push(showProduct);
       localStorage.setItem("cartProducts", JSON.stringify(this.cartArr));
     },
+
+    increaseQuantity(showProduct) {
+      console.log(showProduct);
+      this.cartArr = JSON.parse(localStorage.getItem("cartProducts")) || [];
+      const productIndex = this.cartArr.findIndex(item => item.id === showProduct.id);
+      if (productIndex !== -1) {
+        this.cartArr[productIndex].Quantity += 1;
+        this.cartArr[productIndex].price += this.cartArr[productIndex].price;
+      }
+      localStorage.setItem("cartProducts", JSON.stringify(this.cartArr));
+    }
+    
   },
 });
